@@ -307,8 +307,8 @@ private:
 		RecordHeader header;
 		std::copy(buffer, buffer + sizeof(RecordHeader), reinterpret_cast<char*>(&header));
 		const size_t contentLength = header.contentLength();
-		expected = sizeof(RecordHeader) + contentLength;
-		if (contentLength > length)
+		expected = sizeof(RecordHeader) + contentLength + header.paddingLength;
+		if (expected > length)
 		{
 			return true;
 		}
