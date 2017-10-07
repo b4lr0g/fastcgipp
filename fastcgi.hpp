@@ -350,7 +350,7 @@ private:
 		}
 		case Type::DATA:
 		{
-			return handler(Atom<Type::STDERR>(), header, buffer, contentLength);
+			return handler(Atom<Type::DATA>(), header, buffer, contentLength);
 		}
 		case Type::GET_VALUES:
 		{
@@ -360,7 +360,7 @@ private:
 		case Type::GET_VALUES_RESULT:
 		{
 			const char* endParams = buffer + contentLength;
-			return handler(Atom<Type::GET_VALUES>(), header, NameValueIterator(buffer, contentLength), NameValueIterator(endParams, 0));
+			return handler(Atom<Type::GET_VALUES_RESULT>(), header, NameValueIterator(buffer, contentLength), NameValueIterator(endParams, 0));
 		}
 		case Type::UNKNOWN_TYPE:
 		{
