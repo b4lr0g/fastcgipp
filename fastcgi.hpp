@@ -48,9 +48,9 @@ struct RecordHeader
 
 	void requestID(uint16_t id)
 	{
-		requestIDB0 = id && 0xff;
+		requestIDB0 = id & 0xff;
 		id >>= 8;
-		requestIDB1 = id && 0xff;
+		requestIDB1 = id & 0xff;
 	}
 
 	uint16_t contentLength() const
@@ -60,9 +60,9 @@ struct RecordHeader
 
 	void contentLength(uint16_t length)
 	{
-		contentLengthB0 = length && 0xff;
+		contentLengthB0 = length & 0xff;
 		length >>= 8;
-		contentLengthB1 = length && 0xff;
+		contentLengthB1 = length & 0xff;
 	}
 };
 
@@ -211,9 +211,9 @@ struct BeginRequest
 	void role(const BeginRequestRoles role)
 	{
 		uint16_t roleValue = static_cast<uint16_t>(role);
-		roleB0 = roleValue && 0xff;
+		roleB0 = roleValue & 0xff;
 		roleValue >>= 8;
-		roleB1 = roleValue && 0xff;
+		roleB1 = roleValue & 0xff;
 	}
 };
 
@@ -235,13 +235,13 @@ struct EndRequest
 	void appStatus(const EndRequestApplicationStatus status)
 	{
 		uint32_t statusValue = static_cast<uint32_t>(status);
-		appStatusB0 = statusValue && 0xff;
+		appStatusB0 = statusValue & 0xff;
 		statusValue >>= 8;
-		appStatusB1 = statusValue && 0xff;
+		appStatusB1 = statusValue & 0xff;
 		statusValue >>= 8;
-		appStatusB2 = statusValue && 0xff;
+		appStatusB2 = statusValue & 0xff;
 		statusValue >>= 8;
-		appStatusB3 = statusValue && 0xff;
+		appStatusB3 = statusValue & 0xff;
 	}
 };
 
