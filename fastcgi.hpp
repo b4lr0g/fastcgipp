@@ -78,7 +78,7 @@ enum class BeginRequestRoles : uint16_t
 	FILTER = 3,
 };
 
-enum class EndRequestApplicationStatus : uint16_t
+enum class EndRequestProtocolStatus : uint8_t
 {
 	REQUEST_COMPLETE = 0,
 	CANT_MPX_CONN = 1,
@@ -223,16 +223,15 @@ struct EndRequest
 	uint8_t appStatusB2 = 0;
 	uint8_t appStatusB1 = 0;
 	uint8_t appStatusB0 = 0;
-	uint8_t protocolStatus = 0;
+	EndRequestProtocolStatus protocolStatus = EndRequestProtocolStatus::REQUEST_COMPLETE;
 	uint8_t reserved[3];
-	EndRequestApplicationStatus appStatus() const
+	int32_t appStatus() const
 	{
-		return static_cast<EndRequestApplicationStatus>(
-		    (static_cast<uint32_t>(appStatusB3) << 24) |
+		return (static_cast<uint32_t>(appStatusB3) << 24) |
 		    (static_cast<uint32_t>(appStatusB2) << 16) |
-		    (static_cast<uint32_t>(appStatusB1) <<  8) | appStatusB0);
+		    (static_cast<uint32_t>(appStatusB1) <<  8) | appStatusB0;
 	}
-	void appStatus(const EndRequestApplicationStatus status)
+	void appStatus(const int32_t status)
 	{
 		uint32_t statusValue = static_cast<uint32_t>(status);
 		appStatusB0 = statusValue & 0xff;
