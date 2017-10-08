@@ -60,6 +60,7 @@ struct RecordHeader
 
 	void contentLength(uint16_t length)
 	{
+		paddingLength = static_cast<uint8_t>(((static_cast<uint32_t>(length) + 7u) & ~uint32_t(7u)) - length);
 		contentLengthB0 = length & 0xff;
 		length >>= 8;
 		contentLengthB1 = length & 0xff;
