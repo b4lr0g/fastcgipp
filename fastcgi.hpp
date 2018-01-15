@@ -264,7 +264,7 @@ public:
 		{
 			while (expected_ > buffer_.size())
 			{
-				const size_t length = std::min(expected_, lengthInBytes);
+				const size_t length = std::min(expected_ - buffer_.size(), lengthInBytes);
 				buffer_.insert(buffer_.end(), buffer, buffer + length);
 				buffer += length;
 				lengthInBytes -= length;
